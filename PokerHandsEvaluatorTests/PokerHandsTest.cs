@@ -12,8 +12,7 @@ namespace PokerHandEvaluatorTests
         [InlineData(null)]
         public void EvaluatePokerHands_CheckNullorEmpty_ExceptionTest(string pokerHandsData)
         {
-            var pokerHandsEvaluatorServiceObject = new PokerHands();
-            var actualResultException = Assert.Throws<PokerHandsValidationException>(() => pokerHandsEvaluatorServiceObject.EvaluatePokerHands(pokerHandsData));
+            var actualResultException = Assert.Throws<PokerHandsValidationException>(() => PokerHands.EvaluatePokerHands(pokerHandsData));
             var expectedResult = PokerConstants.InvalidInputMessage;
             Assert.Equal(expectedResult, actualResultException.Message);
         }
@@ -26,9 +25,8 @@ namespace PokerHandEvaluatorTests
         [InlineData("2c 6d Td Tc Js 2c")]
         [InlineData("2c 6d Td Tc Js 2c 2s")]
         public void EvaluatePokerHands_CheckPokerDataLength_LengthTest_ReturnsException(string pokerHandsData)
-        {
-            var pokerHandsEvaluatorServiceObject = new PokerHands();
-            var actualResultException = Assert.Throws<PokerHandsValidationException>(() => pokerHandsEvaluatorServiceObject.EvaluatePokerHands(pokerHandsData));
+        { 
+            var actualResultException = Assert.Throws<PokerHandsValidationException>(() => PokerHands.EvaluatePokerHands(pokerHandsData));
             var expectedResult = PokerConstants.InvalidInputLengthMessage;
             Assert.Equal(expectedResult, actualResultException.Message);
         }
@@ -39,8 +37,7 @@ namespace PokerHandEvaluatorTests
         [InlineData("2c 6c Td Tc Jp")]
         public void EvaluatePokerHands_CheckPokerData_SuitTests_ReturnsException(string pokerHandsData)
         {
-            var pokerHandsEvaluatorServiceObject = new PokerHands();
-            var actualResultException = Assert.Throws<PokerHandsValidationException>(() => pokerHandsEvaluatorServiceObject.EvaluatePokerHands(pokerHandsData));
+            var actualResultException = Assert.Throws<PokerHandsValidationException>(() => PokerHands.EvaluatePokerHands(pokerHandsData));
             var expectedResult = PokerConstants.InvalidInputSuitsMessage;
             Assert.Equal(expectedResult, actualResultException.Message);
         }
@@ -51,8 +48,7 @@ namespace PokerHandEvaluatorTests
         [InlineData("zc zd xd rc js")]
         public void EvaluatePokerHands_CheckPokerData_RanksTest_ReturnsException(string pokerHandsData)
         {
-            var pokerHandsEvaluatorServiceObject = new PokerHands();
-            var actualResultException = Assert.Throws<PokerHandsValidationException>(() => pokerHandsEvaluatorServiceObject.EvaluatePokerHands(pokerHandsData));
+            var actualResultException = Assert.Throws<PokerHandsValidationException>(() => PokerHands.EvaluatePokerHands(pokerHandsData));
             var expectedResult = PokerConstants.InvalidInputRanksMessage;
             Assert.Equal(expectedResult, actualResultException.Message);
         }
@@ -64,8 +60,7 @@ namespace PokerHandEvaluatorTests
         [InlineData("ah kh qh jh th")]
         public void EvaluatePokerHands_CheckRoyalFlush_Test_ReturnsTrue(string pokerHandsData)
         {
-            var pokerHandsEvaluatorServiceObject = new PokerHands();
-            string actualResult = pokerHandsEvaluatorServiceObject.EvaluatePokerHands(pokerHandsData);
+            string actualResult = PokerHands.EvaluatePokerHands(pokerHandsData);
             var expectedResult = PokerConstants.RoyalFlush;
             Assert.Equal(expectedResult, actualResult);
         }
@@ -77,8 +72,7 @@ namespace PokerHandEvaluatorTests
         [InlineData("ac kh qh jh th")]
         public void EvaluatePokerHands_CheckRoyalFlush_Test_ReturnsFalse(string pokerHandsData)
         {
-            var pokerHandsEvaluatorServiceObject = new PokerHands();
-            string actualResult = pokerHandsEvaluatorServiceObject.EvaluatePokerHands(pokerHandsData);
+            string actualResult = PokerHands.EvaluatePokerHands(pokerHandsData);
             var expectedResult = PokerConstants.RoyalFlush;
             Assert.NotEqual(expectedResult, actualResult);
         }
@@ -90,8 +84,7 @@ namespace PokerHandEvaluatorTests
         [InlineData("ah ah qh jh th")]
         public void EvaluatePokerHands_CheckRoyalFlushDuplicates_Test_ReturnsException(string pokerHandsData)
         {
-            var pokerHandsEvaluatorServiceObject = new PokerHands();
-            var actualResult =Assert.Throws<PokerHandsValidationException>(() => pokerHandsEvaluatorServiceObject.EvaluatePokerHands(pokerHandsData));
+            var actualResult =Assert.Throws<PokerHandsValidationException>(() => PokerHands.EvaluatePokerHands(pokerHandsData));
             var expectedResult = PokerConstants.InvalidInputDuplicatesMessage;
             Assert.Equal(expectedResult, actualResult.Message);
         }

@@ -14,13 +14,6 @@ namespace PokerHandsEvaluatorConsoleApplication.Constants
         public const string FullHouse = "Full house";
         public const string FourOfaKind = "Four of a kind";
         public const string StraightFlush = "Straight flush";
-        #region Enums
-        enum PokerCardTypes
-        {
-            PokerRanks,
-            PokerSuits
-        }
-        #endregion
         #region Error Messages
         public const string InvalidInputMessage = "Invalid Input";
         public const string InvalidInputLengthMessage = "Invalid Input Length";

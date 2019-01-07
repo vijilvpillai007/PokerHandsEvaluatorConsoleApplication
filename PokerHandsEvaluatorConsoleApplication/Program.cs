@@ -9,10 +9,9 @@ namespace PokerHandsEvaluatorConsoleApplication
         {
             Console.WriteLine("Please enter the Poker cards");
             string pokerHandsData = Convert.ToString(Console.ReadLine());
-            PokerHands pokerHands=new PokerHands();
             try
             {
-               string pokerHandType = pokerHands.EvaluatePokerHands(pokerHandsData);
+               string pokerHandType = PokerHands.EvaluatePokerHands(pokerHandsData);
                Console.WriteLine(pokerHandType);
                 Console.ReadLine();
             }
