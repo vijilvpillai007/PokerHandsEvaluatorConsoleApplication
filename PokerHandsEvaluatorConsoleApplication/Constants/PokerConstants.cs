@@ -20,6 +20,7 @@ namespace PokerHandsEvaluatorConsoleApplication.Constants
         public const string InvalidInputSuitsMessage = "Invalid Input Suits";
         public const string InvalidInputDuplicatesMessage = "Duplicate pair of cards present in the input";
         public const string InvalidInputRanksMessage = "Invalid Input Ranks";
+        public const string InvalidInputCardsPairMessage = "Number of cards in a pair is more than two";
         #endregion
     }
 }

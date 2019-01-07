@@ -11,8 +11,8 @@ namespace PokerHandsEvaluatorConsoleApplication
             string pokerHandsData = Convert.ToString(Console.ReadLine());
             try
             {
-               string pokerHandType = PokerHands.EvaluatePokerHands(pokerHandsData);
-               Console.WriteLine(pokerHandType);
+                string pokerHandType = PokerHands.EvaluatePokerHands(pokerHandsData);
+                Console.WriteLine(pokerHandType);
                 Console.ReadLine();
             }
             catch (Exception exception)
