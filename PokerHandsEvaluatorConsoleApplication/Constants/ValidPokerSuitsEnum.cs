@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace PokerHandsEvaluatorConsoleApplication.Constants
 {
     public enum ValidPokerSuitsEnum
     {
-        c,//Club
-        d,//Diamond
-        h,//Hearts
-        s//Spade
+        [Description("c")]
+        Club = 1,
+        [Description("d")]
+        Diamond = 2,
+        [Description("h")]
+        Hearts = 3,
+        [Description("s")]
+        Spade = 4
     }
 }
