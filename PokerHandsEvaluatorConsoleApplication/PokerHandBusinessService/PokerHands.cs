@@ -2,14 +2,14 @@
 using PokerHandsEvaluatorConsoleApplication.ExceptionHelpers;
 using System;
 using System.Linq;
+using PokerHandsEvaluatorConsoleApplication.PokerHandsInterfaces;
 
 namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
 {
-    public static class PokerHands
+    public class PokerHands:IPokerHands
     {
-        public static string EvaluatePokerHands(string pokerHandsData)
+        public string EvaluatePokerHands(string pokerHandsData)
         {
-            string pokerHandResult = string.Empty;
             if (!CheckForPokerCardHandsDataIsValid(pokerHandsData))
             {
                 throw new PokerHandsValidationException(PokerConstants.InvalidInputMessage);
@@ -17,11 +17,14 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
             var pokerHands = pokerHandsData.ToLower().Split(" ", StringSplitOptions.RemoveEmptyEntries);
             if (CheckForPokerCardsIsOfTypeRoyalFlush(pokerHands))
             {
-                pokerHandResult = PokerConstants.RoyalFlush;
+               return PokerConstants.RoyalFlush;
             }
-            return pokerHandResult;
+            else
+            {
+                return  string.Empty;
+            }
         }
-        private static bool CheckForPokerCardHandsDataIsValid(string pokerHandsData)
+        private bool CheckForPokerCardHandsDataIsValid(string pokerHandsData)
         {
             if (string.IsNullOrEmpty(pokerHandsData))
             {
@@ -42,7 +45,7 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
             return true;
         }
 
-        private static bool CheckforPokerHandsCountAndDuplicateCards(string[] pokerHandsData)
+        private bool CheckforPokerHandsCountAndDuplicateCards(string[] pokerHandsData)
         {
             if (pokerHandsData.Length != 5)
             {
@@ -59,7 +62,7 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
             return true;
         }
 
-        private static bool CheckForPokerCardsRanksIsValid(string[] pokerHandsData)
+        private bool CheckForPokerCardsRanksIsValid(string[] pokerHandsData)
         {
             bool isValidPokerCardsRank = pokerHandsData
                 .Where(s => !string.IsNullOrEmpty(s)
@@ -72,7 +75,7 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
             }
             return true;
         }
-        private static bool CheckForPokerCardsSuitsIsValid(string[] pokerHandsData)
+        private bool CheckForPokerCardsSuitsIsValid(string[] pokerHandsData)
         {
             bool isValidPokerCardsSuit = pokerHandsData
                                              .Where(s => !string.IsNullOrEmpty(s) &&
@@ -84,7 +87,7 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
             return true;
         }
 
-        private static bool CheckForPokerCardsIsOfTypeRoyalFlush(string[] pokerHandsData)
+        private bool CheckForPokerCardsIsOfTypeRoyalFlush(string[] pokerHandsData)
         {
             bool royalRank = pokerHandsData
                                  .Where(s => !string.IsNullOrEmpty(s) && Enum.IsDefined(typeof(ValidPokerCardRanksEnums), s[0].ToString())).Count() == 5;

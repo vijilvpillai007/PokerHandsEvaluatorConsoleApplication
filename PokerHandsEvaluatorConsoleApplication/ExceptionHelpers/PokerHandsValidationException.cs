@@ -13,8 +13,8 @@ namespace PokerHandsEvaluatorConsoleApplication.ExceptionHelpers
         {
         }
 
-        public PokerHandsValidationException(string message, Exception inner)
-            : base(message, inner)
+        public PokerHandsValidationException(string message, Exception innerException)
+            : base(message, innerException)
         {
         }
     }

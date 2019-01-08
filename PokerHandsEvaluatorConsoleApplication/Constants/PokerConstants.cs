@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PokerHandsEvaluatorConsoleApplication.Constants
+﻿namespace PokerHandsEvaluatorConsoleApplication.Constants
 {
     public static class PokerConstants
     {

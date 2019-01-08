@@ -1,5 +1,7 @@
-﻿using System;
-using PokerHandsEvaluatorConsoleApplication.PokerHandBusiness;
+﻿using PokerHandsEvaluatorConsoleApplication.PokerHandBusiness;
+using System;
+using PokerHandsEvaluatorConsoleApplication.PokerHandsInterfaces;
+using Unity;
 
 namespace PokerHandsEvaluatorConsoleApplication
 {
@@ -7,11 +9,14 @@ namespace PokerHandsEvaluatorConsoleApplication
     {
         static void Main(string[] args)
         {
+            var unityContainer = new UnityContainer();
+            unityContainer.RegisterType<IPokerHands, PokerHands>();
             Console.WriteLine("Please enter the Poker cards");
             string pokerHandsData = Convert.ToString(Console.ReadLine());
             try
             {
-                string pokerHandType = PokerHands.EvaluatePokerHands(pokerHandsData);
+                var pokerHandsObject = unityContainer.Resolve<PokerHands>();
+                string pokerHandType = pokerHandsObject.EvaluatePokerHands(pokerHandsData);
                 Console.WriteLine(pokerHandType);
                 Console.ReadLine();
             }
