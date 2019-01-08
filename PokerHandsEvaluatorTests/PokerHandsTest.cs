@@ -84,7 +84,7 @@ namespace PokerHandEvaluatorTests
         [InlineData("as kc qc jc tc")]
         [InlineData("ah kd qd jd td")]
         [InlineData("ac kh qh jh th")]
-        public void EvaluatePokerHands_PokerHandsSelecedIsOfRoyalFlushType_ReturnsFalse(string pokerHandsData)
+        public void EvaluatePokerHands_PokerHandsSelecedIsOfNotRoyalFlushType_ReturnsFalse(string pokerHandsData)
         {
             var pokerHandsObject = GetPokerHandsObject();
             var actualResult = pokerHandsObject.EvaluatePokerHands(pokerHandsData);

@@ -12,7 +12,7 @@ namespace PokerHandsEvaluatorConsoleApplication
             var unityContainer = new UnityContainer();
             unityContainer.RegisterType<IPokerHands, PokerHands>();
             Console.WriteLine("Please enter the Poker cards");
-            string pokerHandsData = Convert.ToString(Console.ReadLine());
+            string pokerHandsData = Console.ReadLine();
             try
             {
                 var pokerHandsObject = unityContainer.Resolve<PokerHands>();
