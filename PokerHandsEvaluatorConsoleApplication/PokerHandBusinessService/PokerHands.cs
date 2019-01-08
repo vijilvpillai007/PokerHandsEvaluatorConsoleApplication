@@ -3,11 +3,10 @@ using PokerHandsEvaluatorConsoleApplication.ExceptionHelpers;
 using System;
 using System.Linq;
 using PokerHandsEvaluatorConsoleApplication.PokerHandsInterfaces;
-using System.ComponentModel;
 
 namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
 {
-    public class PokerHands : IPokerHands
+    public class PokerHands:IPokerHands
     {
         public string EvaluatePokerHands(string pokerHandsData)
         {
@@ -18,11 +17,11 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
             var pokerHands = pokerHandsData.ToLower().Split(" ", StringSplitOptions.RemoveEmptyEntries);
             if (CheckForPokerCardsIsOfTypeRoyalFlush(pokerHands))
             {
-                return PokerConstants.RoyalFlush;
+               return PokerConstants.RoyalFlush;
             }
             else
             {
-                return string.Empty;
+                return  string.Empty;
             }
         }
         private bool CheckForPokerCardHandsDataIsValid(string pokerHandsData)
@@ -66,7 +65,10 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
         private bool CheckForPokerCardsRanksIsValid(string[] pokerHandsData)
         {
             bool isValidPokerCardsRank = pokerHandsData
-                .Where(s => !string.IsNullOrEmpty(s) && CheckCardIsPresentInEnumBasedOnEnumType(typeof(ValidPokerCardRanksEnums), s[0].ToString())).Select(s => s[0]).Count() == 5;
+                .Where(s => !string.IsNullOrEmpty(s)
+                && (
+                (Char.IsDigit(s[0]) && Convert.ToInt32(s[0].ToString()) > 1 && Convert.ToInt32(s[0].ToString()) < 10)
+                || Enum.IsDefined(typeof(ValidPokerCardRanksEnums), s[0].ToString()))).Select(s => s).Count() == 5;
             if (!isValidPokerCardsRank)
             {
                 throw new PokerHandsValidationException(PokerConstants.InvalidInputRanksMessage);
@@ -77,7 +79,7 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
         {
             bool isValidPokerCardsSuit = pokerHandsData
                                              .Where(s => !string.IsNullOrEmpty(s) &&
-                                                         CheckCardIsPresentInEnumBasedOnEnumType(typeof(ValidPokerSuitsEnum), s[1].ToString())).Select(s => s[1]).Count() == 5;
+                                                         Enum.IsDefined(typeof(ValidPokerSuitsEnum), s[1].ToString())).Select(s => s[0]).Count() == 5;
             if (!isValidPokerCardsSuit)
             {
                 throw new PokerHandsValidationException(PokerConstants.InvalidInputSuitsMessage);
@@ -88,36 +90,11 @@ namespace PokerHandsEvaluatorConsoleApplication.PokerHandBusiness
         private bool CheckForPokerCardsIsOfTypeRoyalFlush(string[] pokerHandsData)
         {
             bool royalRank = pokerHandsData
-                                 .Where(s => !string.IsNullOrEmpty(s) && CheckCardIsPresentInEnumBasedOnEnumType(typeof(ValidRoyalFlushPokerRanks), s[0].ToString())).Select(s => s[0]).Distinct().Count() == 5;
+                                 .Where(s => !string.IsNullOrEmpty(s) && Enum.IsDefined(typeof(ValidPokerCardRanksEnums), s[0].ToString())).Count() == 5;
             bool sameSuit = pokerHandsData
                                 .Where(s => !string.IsNullOrEmpty(s) &&
-                                            CheckCardIsPresentInEnumBasedOnEnumType(typeof(ValidPokerSuitsEnum), s[1].ToString())).Select(s => s[1]).Distinct().Count() == 1;
+                                           Enum.IsDefined(typeof(ValidPokerSuitsEnum), s[1].ToString())).Select(s => s[1]).Distinct().Count() == 1;
             return royalRank && sameSuit;
-        }
-
-        private bool CheckCardIsPresentInEnumBasedOnEnumType(Type enumType, string valueToCheck)
-        {
-            if (enumType == null || string.IsNullOrEmpty(valueToCheck))
-            {
-                return false;
-            }
-            var enumValues = enumType.GetEnumValues();
-            foreach (var cardValue in enumValues)
-            {
-                var fieldInfo = enumType.GetField(cardValue.ToString());
-                var attributes =
-                    fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
-                var description = attributes.Select(s => s.Description);
-                if (description == null)
-                {
-                    return false;
-                }
-                if (description.Contains(valueToCheck, StringComparer.InvariantCultureIgnoreCase))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }
